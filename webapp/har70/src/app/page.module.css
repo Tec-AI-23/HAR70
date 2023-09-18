@@ -1,0 +1,83 @@
+.container {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  gap: 8px;
+  max-width: 850px;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.inputContainer {
+}
+
+.inputLabel {
+  font-size: 24px;
+}
+
+.buttonGroup {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.uploadButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 40px;
+}
+
+.modelContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 48px;
+}
+
+.modelTitle {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.model {
+  font-size: 20px;
+}
+
+.modelParam {
+  color: orange;
+}
+
+.predictContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+}
+
+.predictTitle {
+  font-size: 24px;
+}
+
+.inputSensorsGroup {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: auto auto auto auto auto auto;
+}
+
+.fullButton {
+  max-width: 250px;
+  align-self: center;
+  width: 100%;
+}
+
+.prediction {
+  align-self: center;
+  font-size: 56px;
+  font-weight: 700;
+}
