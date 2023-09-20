@@ -8,10 +8,11 @@ import styles from "./page.module.css";
 import axios from "axios";
 import { API_URL } from "@/lib/api";
 import { Loader2, Check, X } from "lucide-react";
-import {
-  InputSensor,
-  type InputSensorInterface,
-} from "@/components/InputSensor";
+
+import { UploadFile, InputSensor } from "@/components";
+
+import { type InputSensorInterface } from "@/components/InputSensor";
+import { FileUploadStatus, FittingStatus, PredictingStatus } from "@/lib/types";
 
 const INITIAL_SENSOR_DATA: InputSensorInterface[] = [
   { name: "back_x", value: 0 },
@@ -37,22 +38,19 @@ const Home = () => {
   // file uploading
   const [file, setFile] = useState<File>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [fileUploadStatus, setFileUploadStatus] = useState<
-    "done" | "error" | "undefined"
-  >("undefined");
+  const [fileUploadStatus, setFileUploadStatus] =
+    useState<FileUploadStatus>("undefined");
   const [buttonStatus, setButtonStatus] = useState<boolean>(false);
 
   // fitting
-  const [fittingStatus, setFittingStatus] = useState<
-    "not_fitted" | "fitting" | "fitted"
-  >("not_fitted");
+  const [fittingStatus, setFittingStatus] =
+    useState<FittingStatus>("not_fitted");
 
   // predicting
   const [sensorData, setSensorData] =
     useState<InputSensorInterface[]>(INITIAL_SENSOR_DATA);
-  const [predictingStatus, setPredictingStatus] = useState<
-    "not_predicted" | "predicting" | "predicted"
-  >("not_predicted");
+  const [predictingStatus, setPredictingStatus] =
+    useState<PredictingStatus>("not_predicted");
   const [prediction, setPrediction] = useState<string>("");
 
   useEffect(() => {
@@ -140,40 +138,13 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>HAR 70+ Activity Recognition</h1>
-      <div className={styles.inputContainer}>
-        <Label htmlFor="file" className={styles.inputLabel}>
-          Enter training data as CSV
-        </Label>
-        <Input
-          id="file"
-          type="file"
-          className="file:text-white file:font-extrabold hover:file:cursor-pointer"
-          accept=".csv"
-          onChange={(e) => handleChangeInputFile(e)}
-        />
-      </div>
-
-      <Button
-        onClick={handleSubmit}
-        disabled={!buttonStatus}
-        className={styles.fullButton}
-      >
-        {isLoading ? (
-          <Loader2
-            className="mr-2 animate-spin"
-            size={25}
-            style={{ margin: 0 }}
-          />
-        ) : fileUploadStatus === "done" ? (
-          <Check size={25} />
-        ) : fileUploadStatus === "error" ? (
-          <X size={25} />
-        ) : (
-          <>Upload</>
-        )}
-      </Button>
-
+      <UploadFile
+        buttonStatus={buttonStatus}
+        fileUploadStatus={fileUploadStatus}
+        handleChangeInputFile={handleChangeInputFile}
+        handleSubmit={handleSubmit}
+        isLoading={isLoading}
+      />
       <div className={styles.modelContainer}>
         <h2 className={styles.modelTitle}>
           Optimal model:
